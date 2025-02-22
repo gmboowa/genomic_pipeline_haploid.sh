@@ -42,7 +42,21 @@ python download_fasta.py -i "KR781608.1"
 
 ### **3️⃣ Perform Haploid Variant Calling**
 ```bash
+**Single sample**
 bash /Users/gerald/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE.fa -1 ~/SRR1735032_1.fastq.gz -2 ~/SRR1735032_2.fastq.gz -o SRR1735032
+```
+
+
+ **3️⃣For a batch run, create a text file (samples.txt) containing one sample ID per line, e.g.:**
+
+   SRR1735032
+   SRR1735033
+   SRR1735034
+
+ **3️⃣Execute the variant_calling_batch.sh script with your reference genome and sample list:**
+
+```
+bash variant_calling_batch.sh --ref reference.fasta -s samples.txt
 ```
 
 ### **4️⃣ Download GenBank File**
