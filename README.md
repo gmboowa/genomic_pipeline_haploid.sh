@@ -68,7 +68,12 @@ python download_genbank.py -i "KR781608.1"
 ### **5️⃣ Convert GenBank to GFF3**
 ```bash
 python ~/genbank_to_gff3.py -i ~/KR781608.1.gb --output ~/KR781608.1.gff
+
 ```
+ python genbank_to_genes.gbk.py -i ~/X75657.1.gb
+ 
+```
+
 
 ### **6️⃣ Configure SnpEff for Custom Databases**
 Edit the `snpEff.config` file and add:
