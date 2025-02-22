@@ -59,14 +59,14 @@ python ~/genbank_to_gff3.py -i ~/KR781608.1.gb --output ~/KR781608.1.gff
 ### **6️⃣ Configure SnpEff for Custom Databases**
 Edit the `snpEff.config` file and add:
 ```plaintext
-Pseudomonas_aeruginosa_PPF-1.genome : Pseudomonas aeruginosa PPF-1
+
 Ebola_virus_zaire.genome : Ebola virus zaire
 ```
 
 ### **7️⃣ Create Custom Genome Directories**
 Create the necessary directories inside the `data/` directory:
 ```plaintext
-...Pseudomonas_aeruginosa_PPF-1 
+
 ...Ebola_virus_zaire
 ```
 Each directory should contain:
