@@ -1,4 +1,4 @@
-# 🧬 Genomic Pipeline for Haploid Organisms
+# 🧬 Genomic Pipeline for Haploid Pathogens
 ### *Reference Data Retrieval, Variant Calling, Custom Database Setup, Annotation & Missense Variant Filtering*
 
 This repository provides a **comprehensive genomic analysis pipeline** for **haploid organisms**, integrating **reference data retrieval, variant calling, annotation, and missense variant filtering**.  
