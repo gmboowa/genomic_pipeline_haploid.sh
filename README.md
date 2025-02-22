@@ -116,9 +116,4 @@ If you use this workflow in your research, please cite:
 
 ---
 
-## 📧 Contact
-For any questions or issues, please open an **issue** or contact **Gerald**.
 
----
-
-🚀 **Happy Genomic Analysis!** 🧬🎯
