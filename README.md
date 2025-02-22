@@ -47,13 +47,13 @@ bash /Users/gerald/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE
 ```
 
 
- **3️⃣For a batch run, create a text file (samples.txt) containing one sample ID per line, e.g.:**
+ **For a batch run, create a text file (samples.txt) containing one sample ID per line, e.g.:**
 
    SRR1735032
    SRR1735033
    SRR1735034
 
- **3️⃣Execute the variant_calling_batch.sh script with your reference genome and sample list:**
+ **a For a batch run, execute the variant_calling_batch.sh script with your reference genome and sample list:**
 
 ```
 bash variant_calling_batch.sh --ref reference.fasta -s samples.txt
