@@ -84,7 +84,7 @@ python download_genbank.py -i "KR781608.1"
 python ~/genbank_to_gff3.py -i ~/KR781608.1.gb --output ~/KR781608.1.gff
 
 ```
- python genbank_to_genes.gbk.py -i ~/X75657.1.gb
+Rename genbank.gbk to genes.gbk in the .../data directory
  
 ```
 
