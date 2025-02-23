@@ -144,17 +144,82 @@ After running the pipeline, the key output files include:
 - **Annotated variants:** `SRR1735032.output.ann.vcf`
 - **Filtered missense variants:** `SRR1735032.missense.vcf`
 
+
+```
+## Variant Calling Using Minimap2 (For Large Draft Assemblies)
+
+If you are working with long-read assemblies (PacBio/Nanopore), use Minimap2 for variant detection.
+
+Install Minimap2
+
+conda install -c bioconda minimap2
+
+## Align Draft Genome to Reference
+
+minimap2 -ax asm5 reference.fasta draft_genome.fasta > alignment.sam
+Convert to BAM & Sort
+
+samtools view -bS alignment.sam | samtools sort -o alignment_sorted.bam
+
+samtools index alignment_sorted.bam
+
+## Call Variants
+
+bcftools mpileup -Ou -f reference.fasta alignment_sorted.bam | bcftools call -mv -Oz -o variants.vcf.gz
+
+Output: variants.vcf.gz (VCF file containing SNPs and structural variants).
+
+--ref <reference.fasta> → Reference genome.
+
+-s sample_list.txt → A text file containing paths to multiple draft genome assemblies.
+
+
+## Create a sample_list.txt with Paths to Draft Assemblies
+
+Example (sample_list.txt):
+
+/path/to/draft_genome1.fasta
+/path/to/draft_genome2.fasta
+/path/to/draft_genome3.fasta
+
+## Run the Script
+
+bash variant_calling_minimap2.sh --ref reference.fasta -s sample_list.txt
+
+Output:
+
+Sorted BAM files: variant_results/*.sorted.bam
+
+Final Decompressed VCFs: variant_results/*.vcf (for each draft genome)
+
+## 📌 Summary of Methods
+
+Approach	Best For	Tool	Output
+
+Whole-Genome Alignment (WGA)	Comparing multiple draft assemblies	nucmer (MUMmer4)	variants.snps
+
+Read-Mapping Approach	If you have sequencing reads	BWA + BCFtools	variants.vcf.gz
+
+Long-Read Draft Assemblies	Nanopore/PacBio assemblies	Minimap2 + BCFtools	variants.vcf.gz
+
+## 🚀 Now you can perform variant calling on your draft genome assemblies!
+
+  You could also perform annotation (SnpEff) or visualization, this can follow earlier steps described
+
 ---
 
 ## 🛠️ Troubleshooting
 
 - Ensure all **paths are correct** before running the scripts.
+  
 - If **SnpEff fails to build a custom database**, check that `genes.gbk`, `sequence.gff`, and `sequence.fa` are correctly formatted.
+  
 - If **variant calling fails**, verify that **BWA, Samtools, and BCFtools** are installed and correctly linked.
 
 ---
 
 ## 📝 Citation
+
 If you use this workflow in your research, please cite:
 - **SnpEff:** Cingolani et al., 2012.
 - **BCFtools:** Li et al., 2009.
