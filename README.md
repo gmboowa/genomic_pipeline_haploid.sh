@@ -1,4 +1,4 @@
-# 🧬 Genomic Pipeline for Haploid Pathogens
+# Genomic Pipeline for Haploid Pathogens
 
 ### *Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering*
 
@@ -7,7 +7,7 @@ It also supports **custom SnpEff database setup** for genome annotation.
 
 ---
 
-## 🚀 Features
+## Features
 
 ✔️ **Download sequencing data** from SRA  
 ✔️ **Retrieve reference genome (FASTA format)**  
@@ -19,7 +19,7 @@ It also supports **custom SnpEff database setup** for genome annotation.
 
 ---
 
-## 📥 Prerequisites
+## Prerequisites
 
 Ensure you have the following installed:
 - [`fastq-dump`](https://github.com/ncbi/sra-tools) (**SRA Toolkit**)
@@ -31,9 +31,9 @@ Ensure you have the following installed:
 
 ---
 
-## 📌 Step-by-Step Workflow
+## Step-by-Step Workflow
 
-### **1️⃣ Download Sequence Data from SRA**
+### **1Download Sequence Data from SRA**
 
 ```
 
@@ -41,13 +41,13 @@ fastq-dump --gzip --split-3 SRR1735032
 
 ```
 
-### **2️⃣ Download Reference Genome (FASTA)**
+### ** Download Reference Genome (FASTA)**
 
 ```
 python download_fasta.py -i "KR781608.1"
 ```
 
-### **3️⃣ Perform Haploid Variant Calling**
+### ** Perform Haploid Variant Calling**
 
 ```
 
@@ -57,7 +57,7 @@ bash /Users/gerald/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE
 ```
 
 
- **For a batch run, create a text file (samples.txt) containing one sample ID per line, e.g.:**
+ ** For a batch run, create a text file (samples.txt) containing one sample ID per line, e.g.:**
 
    SRR1735032
    SRR1735033
@@ -70,7 +70,7 @@ bash variant_calling_batch.sh --ref reference.fasta -s samples.txt
 
 ```
 
-### **4️⃣ Download GenBank File**
+### ** Download GenBank File**
 
 ```
 python download_genbank.py -i "Ebola virus zaire"
@@ -78,7 +78,7 @@ python download_genbank.py -i "KR781608.1"
 
 ```
 
-### **5️⃣ Convert GenBank to GFF3**
+### ** Convert GenBank to GFF3**
 
 ```
 python ~/genbank_to_gff3.py -i ~/KR781608.1.gb --output ~/KR781608.1.gff
@@ -89,7 +89,7 @@ Rename genbank.gbk to genes.gbk in the .../data directory
 ```
 
 
-### **6️⃣ Configure SnpEff for Custom Databases**
+### ** Configure SnpEff for Custom Databases**
 Edit the `snpEff.config` file and add:
 
 ```
@@ -98,7 +98,7 @@ Ebola_virus_zaire.genome : Ebola virus zaire
 
 ```
 
-### **7️⃣ Create Custom Genome Directories**
+### ** Create Custom Genome Directories**
 Create the necessary directories inside the `data/` directory:
 
 ```
@@ -114,21 +114,21 @@ sequence.gff
 sequence.fa
 ```
 
-### **8️⃣ Build Custom SnpEff Database**
+### ** Build Custom SnpEff Database**
 
 ```
 java -Xmx8g -jar ~/snpEff/snpEff.jar build -genbank -v Ebola_virus_zaire
 
 ```
 
-### **9️⃣ Annotate Variants**
+### ** Annotate Variants**
 
 ```
 java -Xmx8g -jar ~/snpEff/snpEff.jar Ebola_virus_zaire ~/SRR1735032.filtered.vcf > ~/SRR1735032.output.ann.vcf
 
 ```
 
-### **🔟 Extract Missense Variants**
+### ** Extract Missense Variants**
 
 ```
 extract_missense_variants -i ~/SRR1735032.output.ann.vcf -o ~/SRR1735032.missense.vcf
@@ -137,7 +137,7 @@ extract_missense_variants -i ~/SRR1735032.output.ann.vcf -o ~/SRR1735032.missens
 
 ---
 
-## 📌 Expected Output
+## Expected Output
 
 After running the pipeline, the key output files include:
 - **Variant calling output:** `SRR1735032.filtered.vcf`
@@ -192,7 +192,7 @@ Sorted BAM files: variant_results/*.sorted.bam
 
 Final Decompressed VCFs: variant_results/*.vcf (for each draft genome)
 
-## 📌 Summary of Methods
+## Summary of Methods
 
 Approach	Best For	Tool	Output
 
@@ -202,13 +202,13 @@ Read-Mapping Approach	If you have sequencing reads	BWA + BCFtools	variants.vcf.g
 
 Long-Read Draft Assemblies	Nanopore/PacBio assemblies	Minimap2 + BCFtools	variants.vcf.gz
 
-## 🚀 Now you can perform variant calling on your draft genome assemblies!
+## Now you can perform variant calling on your draft genome assemblies!
 
   You could also perform annotation (SnpEff) or visualization, this can follow earlier steps described
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 - Ensure all **paths are correct** before running the scripts.
   
@@ -218,7 +218,7 @@ Long-Read Draft Assemblies	Nanopore/PacBio assemblies	Minimap2 + BCFtools	varian
 
 ---
 
-## 📝 Citation
+## Citation
 
 If you use this workflow in your research, please cite:
 - **SnpEff:** Cingolani et al., 2012.
