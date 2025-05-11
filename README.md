@@ -1,4 +1,4 @@
-# Genomic Pipeline for Haploid Pathogens
+# Genomic Pipeline for Analysis of Pathogen Sequence Data
 
 ### *Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering*
 
