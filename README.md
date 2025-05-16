@@ -41,7 +41,7 @@ fastq-dump --gzip --split-3 SRR1735032
 
 ```
 
-### ** Download Reference Genome (FASTA)**
+### Download reference genome (FASTA)
 
 ```bash
 
@@ -49,7 +49,7 @@ python download_fasta.py -i "KR781608.1"
 
 ```
 
-### ** Perform Haploid Variant Calling**
+### Perform haploid variant calling
 
 
 
@@ -68,7 +68,7 @@ bash ~/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE.fa -1 ~/SRR
    SRR1735033
    SRR1735034
 
- **a For a batch run, execute the variant_calling_batch.sh script with your reference genome and sample list:**
+ **a for a batch run, execute the variant_calling_batch.sh script with your reference genome and sample list:**
 
 ```bash
 
@@ -76,7 +76,7 @@ bash variant_calling_batch.sh --ref reference.fasta -s samples.txt
 
 ```
 
-### Download GenBank File
+### Download GenBank file
 
 ```bash
 python download_genbank.py -i "Ebola virus zaire"
