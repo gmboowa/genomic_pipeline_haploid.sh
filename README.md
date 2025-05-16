@@ -1,6 +1,6 @@
-# Genomic Pipeline for Analysis of Pathogen Sequence Data
+# Genomic pipeline for analysis of pathogen sequence data
 
-### *Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering*
+### Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering*
 
 This repository provides a **comprehensive genomic analysis pipeline** for **haploid organisms**, integrating **reference data retrieval, variant calling, annotation, and missense variant filtering**.  
 It also supports **custom SnpEff database setup** for genome annotation.
@@ -27,13 +27,13 @@ Ensure you have the following installed:
 - [`BWA`](http://bio-bwa.sourceforge.net/), [`Samtools`](http://www.htslib.org/), [`BCFtools`](http://www.htslib.org/)  
 - [`SnpEff`](https://pcingola.github.io/SnpEff/) (for variant annotation)  
 - `genbank_to_gff3.py` (for **GenBank to GFF3 conversion**)  
-- `extract_missense_variants` (for **missense variant filtering**)  
+- `extract_missense_variants` (**for missense variant filtering**)  
 
 ---
 
-## Step-by-Step Workflow
+## Step-by-step workflow
 
-### **1Download Sequence Data from SRA**
+### Download sequence data from SRA
 
 ```bash
 
@@ -76,7 +76,7 @@ bash variant_calling_batch.sh --ref reference.fasta -s samples.txt
 
 ```
 
-### ** Download GenBank File**
+### Download GenBank File
 
 ```bash
 python download_genbank.py -i "Ebola virus zaire"
@@ -85,7 +85,7 @@ python download_genbank.py -i "KR781608.1"
 
 ```
 
-### ** Convert GenBank to GFF3**
+### Convert GenBank to GFF3
 
 ```bash
 
@@ -96,7 +96,7 @@ python ~/genbank_to_gff3.py -i ~/KR781608.1.gb --output ~/KR781608.1.gff
 ```
 
 
-### ** Configure SnpEff for Custom Databases**
+### Configure SnpEff for custom databases
 
 Edit the `snpEff.config` file and add:
 
@@ -106,7 +106,7 @@ Ebola_virus_zaire.genome : Ebola virus zaire
 
 ```
 
-### ** Create Custom Genome Directories**
+### Create custom genome directories**
 
 Create the necessary directories inside the `data/` directory:
 
@@ -123,7 +123,7 @@ sequence.gff
 sequence.fa
 ```
 
-### ** Build Custom SnpEff Database**
+### Build custom SnpEff database
 
 ```bash
 
@@ -131,7 +131,7 @@ java -Xmx8g -jar ~/snpEff/snpEff.jar build -genbank -v Ebola_virus_zaire
 
 ```
 
-### ** Annotate Variants**
+### Annotate variants
 
 ```bash
 
@@ -139,7 +139,7 @@ java -Xmx8g -jar ~/snpEff/snpEff.jar Ebola_virus_zaire ~/SRR1735032.filtered.vcf
 
 ```
 
-### ** Extract Missense Variants**
+### Extract missense variants
 
 ```bash
 extract_missense_variants -i ~/SRR1735032.output.ann.vcf -o ~/SRR1735032.missense.vcf
@@ -148,7 +148,7 @@ extract_missense_variants -i ~/SRR1735032.output.ann.vcf -o ~/SRR1735032.missens
 
 ---
 
-## Expected Output
+## Expected output
 
 After running the pipeline, the key output files include:
 - **Variant calling output:** `SRR1735032.filtered.vcf`
@@ -157,7 +157,7 @@ After running the pipeline, the key output files include:
 
 
 
-## Variant Calling Using Minimap2 (For Large Draft Assemblies)
+## Variant calling using Minimap2 (for large draft assemblies)
 
 If you are working with long-read assemblies (PacBio/Nanopore), use Minimap2 for variant detection.
 
@@ -169,7 +169,7 @@ conda install -c bioconda minimap2
 
 ```
 
-## Align Draft Genome to Reference
+## Align draft genome to reference
 
 ```bash
 
@@ -183,7 +183,7 @@ samtools index alignment_sorted.bam
 
 ```
 
-## Call Variants
+## Call variants
 
 ```bash
 
@@ -196,7 +196,7 @@ Output: variants.vcf.gz (VCF file containing SNPs and structural variants).
 -s sample_list.txt → A text file containing paths to multiple draft genome assemblies.
 
 ```
-## Create a sample_list.txt with Paths to Draft Assemblies
+## Create a sample_list.txt with paths to draft assemblies
 
 Example (sample_list.txt):
 
@@ -208,7 +208,7 @@ Example (sample_list.txt):
 
 ```
 
-## Run the Script
+## Run the script
 
 ```bash
 
@@ -226,7 +226,7 @@ Final Decompressed VCFs: variant_results/*.vcf (for each draft genome)
 
 ```
 
-## Summary of Methods
+## Summary of methods
 
 Approach	best for	tool	output
 
