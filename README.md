@@ -35,7 +35,7 @@ Ensure you have the following installed:
 
 ### **1Download Sequence Data from SRA**
 
-```
+```bash
 
 fastq-dump --gzip --split-3 SRR1735032
 
@@ -43,16 +43,21 @@ fastq-dump --gzip --split-3 SRR1735032
 
 ### ** Download Reference Genome (FASTA)**
 
-```
+```bash
+
 python download_fasta.py -i "KR781608.1"
+
 ```
 
 ### ** Perform Haploid Variant Calling**
 
-```
+
 
 **Single sample**
-bash /Users/gerald/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE.fa -1 ~/SRR1735032_1.fastq.gz -2 ~/SRR1735032_2.fastq.gz -o SRR1735032
+
+```bash
+
+bash ~/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE.fa -1 ~/SRR1735032_1.fastq.gz -2 ~/SRR1735032_2.fastq.gz -o SRR1735032
 
 ```
 
@@ -65,31 +70,34 @@ bash /Users/gerald/snpEff/variant_calling_pipeline --ref ~/snpEff/EVD/Makona-SLE
 
  **a For a batch run, execute the variant_calling_batch.sh script with your reference genome and sample list:**
 
-```
+```bash
+
 bash variant_calling_batch.sh --ref reference.fasta -s samples.txt
 
 ```
 
 ### ** Download GenBank File**
 
-```
+```bash
 python download_genbank.py -i "Ebola virus zaire"
+
 python download_genbank.py -i "KR781608.1"
 
 ```
 
 ### ** Convert GenBank to GFF3**
 
-```
+```bash
+
 python ~/genbank_to_gff3.py -i ~/KR781608.1.gb --output ~/KR781608.1.gff
 
-```
-Rename genbank.gbk to genes.gbk in the .../data directory
+
  
 ```
 
 
 ### ** Configure SnpEff for Custom Databases**
+
 Edit the `snpEff.config` file and add:
 
 ```
@@ -99,6 +107,7 @@ Ebola_virus_zaire.genome : Ebola virus zaire
 ```
 
 ### ** Create Custom Genome Directories**
+
 Create the necessary directories inside the `data/` directory:
 
 ```
@@ -116,21 +125,23 @@ sequence.fa
 
 ### ** Build Custom SnpEff Database**
 
-```
+```bash
+
 java -Xmx8g -jar ~/snpEff/snpEff.jar build -genbank -v Ebola_virus_zaire
 
 ```
 
 ### ** Annotate Variants**
 
-```
+```bash
+
 java -Xmx8g -jar ~/snpEff/snpEff.jar Ebola_virus_zaire ~/SRR1735032.filtered.vcf > ~/SRR1735032.output.ann.vcf
 
 ```
 
 ### ** Extract Missense Variants**
 
-```
+```bash
 extract_missense_variants -i ~/SRR1735032.output.ann.vcf -o ~/SRR1735032.missense.vcf
 
 ```
@@ -145,25 +156,36 @@ After running the pipeline, the key output files include:
 - **Filtered missense variants:** `SRR1735032.missense.vcf`
 
 
-```
+
 ## Variant Calling Using Minimap2 (For Large Draft Assemblies)
 
 If you are working with long-read assemblies (PacBio/Nanopore), use Minimap2 for variant detection.
 
-Install Minimap2
+## Install Minimap2
+
+```bash
 
 conda install -c bioconda minimap2
 
+```
+
 ## Align Draft Genome to Reference
 
+```bash
+
 minimap2 -ax asm5 reference.fasta draft_genome.fasta > alignment.sam
+
 Convert to BAM & Sort
 
 samtools view -bS alignment.sam | samtools sort -o alignment_sorted.bam
 
 samtools index alignment_sorted.bam
 
+```
+
 ## Call Variants
+
+```bash
 
 bcftools mpileup -Ou -f reference.fasta alignment_sorted.bam | bcftools call -mv -Oz -o variants.vcf.gz
 
@@ -173,30 +195,42 @@ Output: variants.vcf.gz (VCF file containing SNPs and structural variants).
 
 -s sample_list.txt → A text file containing paths to multiple draft genome assemblies.
 
-
+```
 ## Create a sample_list.txt with Paths to Draft Assemblies
 
 Example (sample_list.txt):
+
+```bash
 
 /path/to/draft_genome1.fasta
 /path/to/draft_genome2.fasta
 /path/to/draft_genome3.fasta
 
+```
+
 ## Run the Script
+
+```bash
 
 bash variant_calling_minimap2.sh --ref reference.fasta -s sample_list.txt
 
+```
+
 Output:
+
+```bash
 
 Sorted BAM files: variant_results/*.sorted.bam
 
 Final Decompressed VCFs: variant_results/*.vcf (for each draft genome)
 
+```
+
 ## Summary of Methods
 
-Approach	Best For	Tool	Output
+Approach	best for	tool	output
 
-Whole-Genome Alignment (WGA)	Comparing multiple draft assemblies	nucmer (MUMmer4)	variants.snps
+Whole-genome alignment (WGA) comparing multiple draft assemblies	nucmer (MUMmer4)	variants.snps
 
 Read-Mapping Approach	If you have sequencing reads	BWA + BCFtools	variants.vcf.gz
 
@@ -204,7 +238,7 @@ Long-Read Draft Assemblies	Nanopore/PacBio assemblies	Minimap2 + BCFtools	varian
 
 ## Now you can perform variant calling on your draft genome assemblies!
 
-  You could also perform annotation (SnpEff) or visualization, this can follow earlier steps described
+You could also perform annotation (SnpEff) or visualization, this can follow earlier steps described
 
 ---
 
