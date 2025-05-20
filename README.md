@@ -2,7 +2,7 @@
 
 ### Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering*
 
-This repository provides a **comprehensive genomic analysis pipeline** for **haploid organisms**, integrating **reference data retrieval, variant calling, annotation, and missense variant filtering**.  
+This repository provides a **comprehensive genomic analysis pipeline** for **haploid organisms**, integrating **reference data retrieval, variant calling, annotation, & missense variant filtering**.  
 It also supports **custom SnpEff database setup** for genome annotation.
 
 ---
@@ -10,6 +10,7 @@ It also supports **custom SnpEff database setup** for genome annotation.
 ## Features
 
 ✔️ **Download sequencing data** from SRA  
+✔️ **Human DNA sequence removal** using hostile
 ✔️ **Retrieve reference genome (FASTA format)**  
 ✔️ **Perform haploid variant calling** using paired-end sequencing data  
 ✔️ **Download and process GenBank files**  
@@ -40,6 +41,38 @@ Ensure you have the following installed:
 fastq-dump --gzip --split-3 SRR1735032
 
 ```
+
+### Human DNA sequence removal
+
+```bash
+
+*Illumina*
+
+python3 ~~/hostile_clean_human.py --fasta GCF_009914755.4 -i ~/fastq_samples_list.txt -o Clean
+
+```
+**Illumina_fastq_samples_list.txt
+
+| Forward Read (R1)                             | Reverse Read (R2)                             |
+|-----------------------------------------------|-----------------------------------------------|
+| `~/39907_1_83_R1.fastq.gz`                    | `~/39907_1_83_R2.fastq.gz`                    |
+| `~/39907_1_84_R1.fastq.gz`                    | `~/39907_1_84_R2.fastq.gz`                    |
+| `~/39907_1_85_R1.fastq.gz`                    | `~/39907_1_85_R2.fastq.gz`                    |
+
+```
+*Nanopore*
+
+python3 ~~/hostile_clean_ont_human_minimap2.py --fasta GCF_009914755.4 -i ~/ONT_fastq_samples_list.txt -o Clean
+
+```
+**ONT_fastq_samples_list.txt
+
+| Read (R)                                   | 
+|--------------------------------------------|
+| `~/39907_1_83.fastq.gz`                    | 
+| `~/39907_1_84.fastq.gz`                    | 
+| `~/39907_1_85.fastq.gz`                    | 
+
 
 ### Download reference genome (FASTA)
 
