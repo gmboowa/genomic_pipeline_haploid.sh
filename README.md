@@ -1,6 +1,6 @@
 # Genomic pipeline for analysis of pathogen sequence data
 
-### Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering*
+### Reference data retrieval, variant calling, custom database setup, annotation & missense variant filtering
 
 This repository provides a **comprehensive genomic analysis pipeline** for **haploid organisms**, integrating **reference data retrieval, variant calling, annotation, & missense variant filtering**.  
 It also supports **custom SnpEff database setup** for genome annotation.
@@ -8,15 +8,16 @@ It also supports **custom SnpEff database setup** for genome annotation.
 ---
 
 ## Features
-
-✔️ **Download sequencing data** from SRA  
-✔️ **Human DNA sequence removal** using hostile
-✔️ **Retrieve reference genome (FASTA format)**  
-✔️ **Perform haploid variant calling** using paired-end sequencing data  
-✔️ **Download and process GenBank files**  
-✔️ **Convert GenBank to GFF3 format**  
-✔️ **Set up a custom SnpEff annotation database**  
-✔️ **Annotate variants and extract missense variants**  
+| Step # | Task Description                                        |
+|--------|---------------------------------------------------------|
+| ✔️ 1   | Download sequencing data from SRA                       |
+| ✔️ 2   | Human DNA sequence removal using hostile                |
+| ✔️ 3   | Retrieve reference genome (FASTA format)                |
+| ✔️ 4   | Perform haploid variant calling using paired-end data   |
+| ✔️ 5   | Download and process GenBank files                      |
+| ✔️ 6   | Convert GenBank to GFF3 format                          |
+| ✔️ 7   | Set up a custom SnpEff annotation database              |
+| ✔️ 8   | Annotate variants and extract missense variants         |
 
 ---
 
